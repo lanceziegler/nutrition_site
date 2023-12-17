@@ -1,8 +1,14 @@
 'use client';
 import { stagger, useAnimate } from 'framer-motion';
-import React from 'react';
+import { IconArrowRight } from '@tabler/icons-react';
+import Link from 'next/link';
+interface propTypes {
+  text: string;
+  href?: string;
+  arrow?: any;
+}
 
-const FancyButton = () => {
+const FancyButton = ({ text, href, arrow }: propTypes) => {
   // scope is a ref, needs to be set to parents of things we want to animate
   const [scope, animate] = useAnimate();
 
@@ -18,20 +24,21 @@ const FancyButton = () => {
       ['.letter', { y: 0 }, { duration: 0.000001, at: 0.5 }],
     ]);
   };
-
+  //! ANIMATE PRESENCE FOR TRANSITIONING BETWEEN CLICKED THINGS
   return (
     <div ref={scope}>
-      <button
+      <Link
         onClick={onButtonClick}
-        className='text-2xl rounded-full border-2 border-blue-600 px-6 py-2 text-blue-600 hover:bg-blue-100 transition-colors'
+        className='text-2xl rounded-full border-2 border-blue-600 px-6 py-2 text-blue-600 hover:bg-blue-100 transition-colors flex items-center justify-between gap-2'
+        href={href || ''}
       >
-        <span className='sr-only'>About</span>
+        <span className='sr-only'>{text}</span>
         {/** Not read to screen reader */}
         <span
           className='h-8 overflow-hidden flex items-center justify-center'
           aria-hidden
         >
-          {['A', 'b', 'o', 'u', 't'].map((letter, index) => (
+          {text.split('').map((letter, index) => (
             //Needs to be inline-block to be translated. Inline cannot translate.
             <span
               data-letter={letter}
@@ -42,7 +49,12 @@ const FancyButton = () => {
             </span>
           ))}
         </span>
-      </button>
+        {arrow ? (
+          <span>
+            <IconArrowRight />
+          </span>
+        ) : null}
+      </Link>
     </div>
   );
 };
