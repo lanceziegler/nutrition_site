@@ -2,13 +2,21 @@ import React from 'react';
 import Link from 'next/link';
 import FancyButton from './FancyButton';
 import { IconArrowRight } from '@tabler/icons-react';
+import Image from 'next/image';
 
 const Nav = () => {
   return (
-    <div className='fixed w-full z-50'>
-      <div className='flex justify-between items-center bg-gray-100'>
-        <div>
-          <ul className='flex p-2 gap-5'>
+    <nav className='fixed w-full z-50 border-b-2 border-black shadow-lg'>
+      <div className='flex items-center bg-gray-100 p-2'>
+        {/* Left section */}
+        <div className='flex items-center gap-5'>
+          <Image
+            src='/logo.png'
+            width={160}
+            height={10}
+            alt='DP Nutrition Logo'
+          />
+          <ul className='flex gap-5 pl-3 items-center translate-y-9'>
             <li>
               <FancyButton href='/' text='Home' />
             </li>
@@ -17,11 +25,13 @@ const Nav = () => {
             </li>
           </ul>
         </div>
-        <div>
+
+        {/* Right section */}
+        <div className='ml-auto'>
           <FancyButton text='Contact' arrow={true} />
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 
