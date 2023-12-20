@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Quicksand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Poppins:wght@200;300;400&family=Quicksand&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -60,7 +60,7 @@ body {
   background-color: white;
   overflow: hidden;
   background: linear-gradient(to right, #70b959, #70b959 50%, #f8fff6 50%);
-  background-size: 200% 100%;
+  background-size: 205% 100%;
   background-position: 100%;
   transition: background-position 200ms ease-in-out;
 }
@@ -107,4 +107,17 @@ li.selected {
 
 .custom-shape-divider-bottom-1703050490 .shape-fill {
   fill: #70b959;
+}
+
+.spin {
+  animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

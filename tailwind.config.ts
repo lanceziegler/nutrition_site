@@ -16,6 +16,7 @@ const config: Config = {
       fontFamily: {
         quicksand: ['Quicksand', 'sans-serif'],
         caveat: ['Caveat', 'cursive'],
+        poppins: ['Poppins', 'sans-serif'],
       },
     },
   },

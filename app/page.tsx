@@ -6,12 +6,45 @@ import {
   AnimatePresence,
   delay,
   scroll,
+  stagger,
+  useAnimate,
 } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
+function CheckIcon() {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 24 24'
+      strokeWidth={1.5}
+      stroke='#70b959'
+      className='CheckIcon'
+      style={{ width: '50px', height: '50px' }}
+    >
+      <motion.path
+        initial={{ opacity: 0, pathLength: 0 }}
+        animate={{ opacity: 1, pathLength: 1 }}
+        exit={{ pathLength: 0 }}
+        transition={{
+          type: 'spring',
+          stiffness: 35,
+          duration: 0.01,
+          delay: 1,
+          ease: 'easeOut',
+        }}
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        d='M4.5 12.75l6 6 9-13.5'
+      />
+    </svg>
+  );
+}
+
 export default function Home() {
   const { scrollYProgress } = useScroll();
+  const [scope, animate] = useAnimate();
   //TODO: Animate Presence when changing pages
 
   return (
@@ -21,7 +54,7 @@ export default function Home() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className='min-h-screen frontpage'
+        className='frontpage'
       >
         <Image
           src='/kitchen2.jpg'
@@ -43,7 +76,7 @@ export default function Home() {
           transition={{ duration: 1, ease: [0.2, 0.2, 0.1, 1] }}
         />
         <motion.div
-          className='slide-outX flex min-h-screen items-center justify-center relative z-20'
+          className='slide-outX flex items-center justify-center relative z-20'
           initial={{ scaleX: 1 }}
           animate={{ scaleX: 0 }}
           exit={{ scaleX: 0 }}
@@ -62,33 +95,43 @@ export default function Home() {
             />
           </div>
         </motion.div>
-        <main className='grid grid-cols-3 grid-flow-row'>
-          <div className='col-start-1 col-span-2 relative'>
-            <h1 className='text-5xl font-caveat absolute top-1/3 right-[50%]'>
-              Easy. Affordable. Delicious.
-            </h1>
-          </div>
-          <div className='col-start-3 col-span-1 flex items-center justify-center min-h-screen'>
-            {/* <div
-              className='
-              w-full bg-gray-400 rounded-3xl bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-0 m-10 border-4 border-gray-400'
+        <main className='grid grid-cols-2 min-h-screen'>
+          <div className='col-start-1 col-span-1 flex justify-center items-center'>
+            <motion.ul
+              className='p-5 bg-white rounded-3xl shadow-2xl flex select-none gap-2'
+              initial={{ y: 30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.5, duration: 1 }}
             >
-              <div className='flex flex-col justify-center items-center p-10 gap-5'>
+              {Array.from(['Easy', 'Affordable', 'Delicious']).map((item) => (
+                <li key={item} className='flex li items-center'>
+                  <h1 className='text-6xl font-caveat'>{item}</h1>
+                  <CheckIcon />
+                </li>
+              ))}
+            </motion.ul>
+          </div>
+          <div className='col-start-2 col-span-1 flex items-center justify-center'>
+            <div>
+              <motion.div
+                className='flex flex-col justify-center items-center p-10 gap-5'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5, duration: 1 }}
+              >
+                <div className='spin bg-gradient-to-t from-green-100 to-[#70b959] absolute rounded-full w-[380px] h-[380px]'></div>
                 <div className='w-[350px] h-[350px] overflow-hidden rounded-full relative'>
                   <Image
                     src='/danielle7.JPG'
                     alt='Danielle Pauls Picture'
                     width={350}
                     height={350}
-                    className='absolute -top-16'
+                    className='absolute -top-16 z-10'
+                    draggable={false}
                   />
                 </div>
-                <p className='text-black text-center text-xl tracking-widest'>
-                  My name is Danielle Pauls and I'm cool and stuff here's just a
-                  quick little section introducing myself, idk.
-                </p>
-              </div>
-            </div> */}
+              </motion.div>
+            </div>
           </div>
         </main>
         <div className='custom-shape-divider-bottom-1703050490'>
@@ -126,7 +169,7 @@ export default function Home() {
           hi
         </motion.div>
       </section>
-      <section className='min-h-screen bg-green-300'></section>
+      <section className='min-h-screen bg-green-300 relative'></section>
     </AnimatePresence>
   );
 }
