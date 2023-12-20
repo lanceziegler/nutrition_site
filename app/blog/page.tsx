@@ -3,12 +3,12 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-const About = () => {
+const Blog = () => {
   return (
     <main className='flex justify-center items-center min-h-screen'>
-      <div className='text-5xl'>About</div>
+      <div className='text-5xl'>Blog</div>
     </main>
   );
 };
 
-export default About;
+export default Blog;

@@ -14,7 +14,7 @@ body {
   left: 0;
   right: 0;
   height: 10px;
-  background: var(--red);
+  background: #70b959;
   transform-origin: 0%;
 }
 
@@ -30,15 +30,13 @@ body {
 
 .slide-outX {
   position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100vh;
   background: #6cbc56;
   transform-origin: right;
 }
 
-.slide-inY {
+/* .slide-inY {
   position: fixed;
   top: 0;
   left: 0;
@@ -56,12 +54,12 @@ body {
   height: 100vh;
   background: #6cbc56;
   transform-origin: bottom;
-}
+} */
 
 .greenWipe {
   background-color: white;
   overflow: hidden;
-  background: linear-gradient(to right, #d3f6c8, #d3f6c8 50%, white 50%);
+  background: linear-gradient(to right, #70b959, #70b959 50%, #f8fff6 50%);
   background-size: 200% 100%;
   background-position: 100%;
   transition: background-position 200ms ease-in-out;
@@ -69,4 +67,18 @@ body {
 
 .greenWipe:hover {
   background-position: 0 100%;
+}
+
+li.selected {
+  background: #bb7272;
+}
+
+.underline {
+  position: absolute;
+  top: -30px;
+  right: 50%;
+  left: 50%;
+  height: 50px;
+  width: 50px;
+  /* background: #70b959; */
 }

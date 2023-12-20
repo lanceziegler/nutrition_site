@@ -4,20 +4,31 @@ import { useState } from 'react';
 import { IconArrowRight } from '@tabler/icons-react';
 import Link from 'next/link';
 import { once } from 'events';
+import { IconHome, IconWoman, IconBallpen } from '@tabler/icons-react';
+import { useEffect } from 'react';
+import { IconLeaf } from '@tabler/icons-react';
+
 interface propTypes {
   text: string;
   href?: string;
   arrow?: any;
+  selected?: boolean;
 }
 
-const FancyButton = ({ text, href, arrow }: propTypes) => {
+const FancyButton = ({ text, href, arrow, selected }: propTypes) => {
   // scope is a ref, needs to be set to parents of things we want to animate
   const [scope, animate] = useAnimate();
   const [animated, setAnimated] = useState(false);
 
+  useEffect(() => {
+    console.log(text + ' ' + selected);
+  }, [selected, text]);
+
   const handleButtonClick = () => {
     animate([
-      ['.letter', { y: -32 }, { duration: 0.2, delay: stagger(0.05) }],
+      ['.letter', { color: '#000000' }],
+      ['.buttonLink', { color: '#000000' }, { at: '<' }],
+      ['.letter', { y: -32 }, { duration: 0.2, delay: stagger(0.05), at: '<' }],
       // at "<" tells it to run at the exact same time instead of after
       // can also att "0.5" and it will run half a second before the previous
       ['.buttonLink', { scale: 0.9 }, { duration: 0.1, at: '<' }],
@@ -29,11 +40,22 @@ const FancyButton = ({ text, href, arrow }: propTypes) => {
     ]);
   };
 
+  const handleButtonClickContact = () => {
+    animate([
+      ['.buttonLink', { scale: 0.9 }, { duration: 0.1, at: '<' }],
+      ['.buttonLink', { scale: 1.1 }, { duration: 0.13, at: '<' }],
+      ['.buttonLink', { scale: 1 }, { duration: 0.1 }],
+    ]);
+  };
+
   const handleMouseOver = () => {
     if (!animated) {
       setAnimated(true);
       animate([
-        ['.buttonLink', { scale: 1.02 }, { duration: 0.1 }],
+        ['.letter', { color: '#FFFFFF' }],
+        ['.buttonLink', { scale: 1.02 }, { duration: 0.1, at: '<' }],
+        ['.buttonLink', { color: '#FFFFFF' }, { duration: 0.1, at: '<' }],
+        ['.buttonLink', { borderColor: '#70b959' }, { duration: 0.1, at: '<' }],
         ['.buttonLink', { y: -2.5, rotate: '-2deg' }, { duration: 0.2 }],
         ['.buttonLink', { y: 2, rotate: '1deg' }, { duration: 0.1 }],
         ['.buttonLink', { y: -0.5 }, { duration: 0.15, delay: 0.1, at: '<' }],
@@ -47,38 +69,37 @@ const FancyButton = ({ text, href, arrow }: propTypes) => {
     if (!animated) {
       setAnimated(true);
       animate([
-        ['.arrow', { x: 7 }, { duration: 0.5 }],
+        ['.arrow', { x: 7 }, { duration: 0.5, ease: 'easeOut' }],
         ['.buttonLink', { x: 3 }, { at: '<' }],
         [
           '.buttonLink',
-          { background: '#d3f6c8', borderColor: '#70b959' },
+          { background: '#70b959', borderColor: '#70b959', color: '#FFFFFF' },
           { at: '<', duration: 0.2 },
         ],
       ]);
     }
   };
 
-  function generateRandomNumber(min: number, max: number) {
-    const randomDecimal = Math.random();
-    const randomNumber = min + randomDecimal * (max - min);
-
-    return randomNumber;
-  }
-
   const handleMouseLeave = () => {
     setAnimated(false);
-    animate([['.buttonLink', { scale: 1 }]]);
+    animate([
+      ['.letter', { color: '#000000' }],
+
+      ['.buttonLink', { scale: 1 }, { at: '<' }],
+      ['.buttonLink', { color: '#000000' }, { duration: 0.1, at: '<' }],
+      ['.buttonLink', { borderColor: '#000000' }, { duration: 0.1, at: '<' }],
+    ]);
   };
 
   const handleMouseLeaveContact = () => {
     setAnimated(false);
     animate([
-      ['.arrow', { x: 0 }],
+      ['.arrow', { x: 0 }, { at: '.6' }],
       ['.buttonLink', { x: 0 }, { at: '<' }],
       [
         '.buttonLink',
-        { background: 'white', borderColor: '#9bd787' },
-        { duration: 1.7 },
+        { background: '#f8fff6', borderColor: '#9bd787', color: '#000000' },
+        { duration: 0.1, at: '<' },
       ],
     ]);
   };
@@ -86,22 +107,39 @@ const FancyButton = ({ text, href, arrow }: propTypes) => {
   //hover:bg-green-100
   //! ANIMATE PRESENCE FOR TRANSITIONING BETWEEN CLICKED THINGS
   return (
-    <motion.div ref={scope} whileTap={{ scale: 0.95 }}>
+    <motion.div
+      ref={scope}
+      whileTap={{ scale: 0.95 }}
+      className={`${selected && 'select-none'}`}
+    >
+      {selected ? (
+        <motion.span className='underline' layoutId='underline'>
+          <IconLeaf fill='#70b959' color='#70b959' size={35} />
+        </motion.span>
+      ) : null}
       <Link
-        onClick={handleButtonClick}
-        onMouseOver={!arrow ? handleMouseOver : handleMouseOverContact}
+        onClick={!arrow ? handleButtonClick : handleButtonClickContact}
+        onMouseOver={
+          !selected
+            ? !arrow
+              ? handleMouseOver
+              : handleMouseOverContact
+            : undefined
+        }
         onMouseLeave={!arrow ? handleMouseLeave : handleMouseLeaveContact}
         className={`buttonLink text-2xl ${
           !arrow
-            ? 'rounded-full border-2 border-black greenWipe'
-            : 'rounded-md border-4 border-[#9bd787] shadow-md'
-        } px-6 py-2 text-black transition-colors flex items-center justify-between gap-2 bg-gray-100`}
+            ? `rounded-full border-2 border-[#000000] ${
+                !selected && 'greenWipe'
+              } ${selected ? 'bg-green-100' : 'bg-gray-100'} `
+            : 'rounded-md border-4 border-[#9bd787] shadow-md bg-[#f8fff6]'
+        } px-6 py-2 text-[#000000] transition-colors flex items-center gap-3`}
         href={href || ''}
       >
         <span className='sr-only'>{text}</span>
         {/** Not read to screen reader */}
         <span
-          className='h-8 overflow-hidden flex items-center justify-center'
+          className={`h-8 overflow-hidden flex items-center justify-center`}
           aria-hidden
         >
           {text.split('').map((letter, index) => (
@@ -115,6 +153,11 @@ const FancyButton = ({ text, href, arrow }: propTypes) => {
             </span>
           ))}
         </span>
+        <motion.span className='icon'>
+          {text === 'Home' && <IconHome />}
+          {text === 'About' && <IconWoman />}{' '}
+          {text === 'Blog' && <IconBallpen />}
+        </motion.span>
         {arrow ? (
           <span className='arrow'>
             <IconArrowRight />
