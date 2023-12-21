@@ -35,13 +35,14 @@ const Nav = () => {
             alt='DP Nutrition Logo'
             priority
             draggable={false}
+            style={{ width: '100%', height: '100%' }}
           />
           <div className='relative'>
             <div className='absolute border-2 border-black w-[110%] h-full top-[98%] -right-[6.1%] bg-gray-100 shadow-lg -z-10 rounded-b-full'></div>
             <ul className=' gap-5 pl-3 flex items-center translate-y-9'>
               {tabs.map((item, i) => (
                 <li
-                  key={item}
+                  key={`${item}-${i}`}
                   onClick={() => setSelected(item)}
                   className='relative'
                 >

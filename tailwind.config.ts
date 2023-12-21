@@ -17,6 +17,7 @@ const config: Config = {
         quicksand: ['Quicksand', 'sans-serif'],
         caveat: ['Caveat', 'cursive'],
         poppins: ['Poppins', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif'],
       },
     },
   },

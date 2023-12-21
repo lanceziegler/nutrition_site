@@ -24,8 +24,8 @@ function CheckIcon() {
       style={{ width: '50px', height: '50px' }}
     >
       <motion.path
-        initial={{ opacity: 0, pathLength: 0 }}
-        animate={{ opacity: 1, pathLength: 1 }}
+        // initial={{ opacity: 0, pathLength: 0 }}
+        // animate={{ opacity: 1, pathLength: 1 }}
         exit={{ pathLength: 0 }}
         transition={{
           type: 'spring',
@@ -36,7 +36,7 @@ function CheckIcon() {
         }}
         strokeLinecap='round'
         strokeLinejoin='round'
-        d='M4.5 12.75l6 6 9-13.5'
+        d='M4.5 12.75l6 6 10-16.5'
       />
     </svg>
   );
@@ -45,12 +45,21 @@ function CheckIcon() {
 export default function Home() {
   const { scrollYProgress } = useScroll();
   const [scope, animate] = useAnimate();
+
   //TODO: Animate Presence when changing pages
+  useEffect(() => {
+    animate([
+      [
+        'li span',
+        { opacity: 1, scale: 1, filter: 'blur(0px)' },
+        { delay: stagger(0.4, { startDelay: 1 }) },
+      ],
+    ]);
+  }, []);
 
   return (
-    <AnimatePresence>
+    <>
       <motion.div
-        key='home'
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -98,17 +107,24 @@ export default function Home() {
         <main className='grid grid-cols-2 min-h-screen'>
           <div className='col-start-1 col-span-1 flex justify-center items-center'>
             <motion.ul
+              ref={scope}
               className='p-5 bg-white rounded-3xl shadow-2xl flex select-none gap-2'
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5, duration: 1 }}
             >
-              {Array.from(['Easy', 'Affordable', 'Delicious']).map((item) => (
-                <li key={item} className='flex li items-center'>
-                  <h1 className='text-6xl font-caveat'>{item}</h1>
-                  <CheckIcon />
-                </li>
-              ))}
+              {Array.from(['Easy', 'Affordable', 'Delicious']).map(
+                (item, i) => (
+                  <li key={`${item}-${i}`} className='flex items-center gap-2'>
+                    <h1 className='text-6xl font-caveat'>{item}</h1>
+                    <motion.span
+                      initial={{ opacity: 0, scale: 0.3, filter: 'blur(20px)' }}
+                    >
+                      <CheckIcon />
+                    </motion.span>
+                  </li>
+                )
+              )}
             </motion.ul>
           </div>
           <div className='col-start-2 col-span-1 flex items-center justify-center'>
@@ -119,7 +135,17 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5, duration: 1 }}
               >
-                <div className='spin bg-gradient-to-t from-green-100 to-[#70b959] absolute rounded-full w-[380px] h-[380px]'></div>
+                <motion.div
+                  initial={{ filter: 'blur(30px)' }}
+                  animate={{ filter: 'blur(0px)' }}
+                  transition={{
+                    delay: 2.1,
+                    duration: 3,
+                    type: 'spring',
+                    stiffness: 45,
+                  }}
+                  className='spin bg-gradient-to-t from-green-100 to-[#70b959] absolute rounded-full w-[380px] h-[380px]'
+                ></motion.div>
                 <div className='w-[350px] h-[350px] overflow-hidden rounded-full relative'>
                   <Image
                     src='/danielle7.JPG'
@@ -128,6 +154,7 @@ export default function Home() {
                     height={350}
                     className='absolute -top-16 z-10'
                     draggable={false}
+                    priority
                   />
                 </div>
               </motion.div>
@@ -170,6 +197,6 @@ export default function Home() {
         </motion.div>
       </section>
       <section className='min-h-screen bg-green-300 relative'></section>
-    </AnimatePresence>
+    </>
   );
 }

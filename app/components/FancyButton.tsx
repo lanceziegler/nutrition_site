@@ -147,7 +147,7 @@ const FancyButton = ({ text, href, arrow, selected }: propTypes) => {
             //Needs to be inline-block to be translated. Inline cannot translate.
             <span
               data-letter={letter}
-              className='letter inline-block relative h-8 after:h-8 after:absolute after:left-0 after:top-full after:content-[attr(data-letter)] leading-8 font-quicksand font-bold'
+              className='letter inline-block relative h-8 after:h-8 after:absolute after:left-0 after:top-full after:content-[attr(data-letter)] leading-8 font-roboto tracking-wide font-bold'
               key={`${letter}-${index}`}
             >
               {letter}
