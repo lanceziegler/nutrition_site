@@ -67,7 +67,19 @@ const Nav = () => {
         </div>
 
         {/* Right section */}
-        <div className='ml-auto'>
+        <div className='ml-auto flex items-center gap-10'>
+          <button>
+            <span className='flex justify-center items-center gap-3 bg-blue-100 p-2 rounded-3xl text-lg font-poppins hover:bg-blue-400 hover:text-white transition-colors duration-500'>
+              <p>NutritionPortal</p>
+              <Image
+                src='/portal.png'
+                alt='nutrition portal login'
+                width={55}
+                height={30}
+                className='border-2 rounded-full'
+              ></Image>
+            </span>
+          </button>
           <FancyButton text='Contact' arrow={true} />
         </div>
       </div>

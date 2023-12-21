@@ -106,26 +106,40 @@ export default function Home() {
         </motion.div>
         <main className='grid grid-cols-2 min-h-screen'>
           <div className='col-start-1 col-span-1 flex justify-center items-center'>
-            <motion.ul
-              ref={scope}
-              className='p-5 bg-white rounded-3xl shadow-2xl flex select-none gap-2'
+            <motion.div
+              className='relative'
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5, duration: 1 }}
             >
-              {Array.from(['Easy', 'Affordable', 'Delicious']).map(
-                (item, i) => (
-                  <li key={`${item}-${i}`} className='flex items-center gap-2'>
-                    <h1 className='text-6xl font-caveat'>{item}</h1>
-                    <motion.span
-                      initial={{ opacity: 0, scale: 0.3, filter: 'blur(20px)' }}
+              <p className='bg-white absolute -top-9 font-poppins tracking-wide text-2xl py-3 px-10 rounded-tr-full select-none'>
+                Custom plans that are:
+              </p>
+              <motion.ul
+                ref={scope}
+                className='p-5 bg-white rounded-3xl rounded-l-none shadow-2xl flex select-none gap-2'
+              >
+                {Array.from(['Easy', 'Affordable', 'Delicious']).map(
+                  (item, i) => (
+                    <li
+                      key={`${item}-${i}`}
+                      className='flex items-center gap-2'
                     >
-                      <CheckIcon />
-                    </motion.span>
-                  </li>
-                )
-              )}
-            </motion.ul>
+                      <h1 className='text-6xl font-caveat'>{item}</h1>
+                      <motion.span
+                        initial={{
+                          opacity: 0,
+                          scale: 0.3,
+                          filter: 'blur(20px)',
+                        }}
+                      >
+                        <CheckIcon />
+                      </motion.span>
+                    </li>
+                  )
+                )}
+              </motion.ul>
+            </motion.div>
           </div>
           <div className='col-start-2 col-span-1 flex items-center justify-center'>
             <div>

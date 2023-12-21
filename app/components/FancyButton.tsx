@@ -60,8 +60,7 @@ const FancyButton = ({ text, href, arrow, selected }: propTypes) => {
         ['.buttonLink', { y: 2, rotate: '1deg' }, { duration: 0.1 }],
         ['.buttonLink', { y: -0.5 }, { duration: 0.15, delay: 0.1, at: '<' }],
         ['.buttonLink', { y: 0, rotate: '-.9deg' }, { duration: 0.2 }],
-        ['.buttonLink', { y: 0, rotate: '.6deg' }, { duration: 0.05 }],
-        ['.buttonLink', { y: 0, rotate: '0deg' }, { duration: 0.05 }],
+        ['.buttonLink', { y: 0, rotate: '0deg' }, { duration: 0.2, at: '<' }],
       ]);
     }
   };
