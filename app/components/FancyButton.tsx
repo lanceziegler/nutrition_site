@@ -127,7 +127,7 @@ const FancyButton = ({ text, href, arrow, selected }: propTypes) => {
         onMouseLeave={!arrow ? handleMouseLeave : handleMouseLeaveContact}
         className={`buttonLink text-2xl ${
           !arrow
-            ? `rounded-full border-2 ${!selected && 'greenWipe'} ${
+            ? `rounded-full border-2 shadow-lg ${!selected && 'greenWipe'} ${
                 selected
                   ? 'bg-green-100 border-[#70b959]'
                   : 'bg-gray-100 border-[#000000]'
