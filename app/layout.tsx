@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Nav from './components/Nav';
 import { AnimatePresence } from 'framer-motion';
+import NutritionProvider from './libs/NutritionProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,8 +20,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <Nav />
-        {children}
+        <NutritionProvider>
+          <Nav />
+          {children}
+        </NutritionProvider>
       </body>
     </html>
   );

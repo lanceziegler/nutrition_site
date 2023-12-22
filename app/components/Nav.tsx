@@ -11,13 +11,16 @@ import {
   IconBallpen,
   IconLeaf,
 } from '@tabler/icons-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { NutritionContext } from '../libs/NutritionProvider';
 import { motion } from 'framer-motion';
 
 const Nav = () => {
   const tabs = ['Home', 'About', 'Blog'];
   const hrefs = ['/', '/about', '/blog'];
   const [selected, setSelected] = useState(tabs[0]);
+  const { contactModalVisible, setContactModalVisible } =
+  useContext(NutritionContext)!;
 
   useEffect(() => {
     console.log(selected);

@@ -2,7 +2,8 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { NutritionContext } from '../libs/NutritionProvider';
 
 /*
   {
@@ -47,6 +48,8 @@ interface Post {
 
 const Blog = () => {
   const [feedData, setFeedData] = useState<Post[]>([]);
+  const { contactModalVisible, setContactModalVisible } =
+  useContext(NutritionContext)!;
 
   // useEffect(() => {
   //   fetch('https://feeds.behold.so/0wVE2yAkUj6O76U06tPe')

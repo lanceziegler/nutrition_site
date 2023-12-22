@@ -1,12 +1,13 @@
 'use client';
 import { stagger, useAnimate, motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { IconArrowRight } from '@tabler/icons-react';
 import Link from 'next/link';
 import { once } from 'events';
 import { IconHome, IconWoman, IconBallpen } from '@tabler/icons-react';
 import { useEffect } from 'react';
 import { IconLeaf } from '@tabler/icons-react';
+import { NutritionContext } from '../libs/NutritionProvider';
 
 interface propTypes {
   text: string;
@@ -19,6 +20,8 @@ const FancyButton = ({ text, href, arrow, selected }: propTypes) => {
   // scope is a ref, needs to be set to parents of things we want to animate
   const [scope, animate] = useAnimate();
   const [animated, setAnimated] = useState(false);
+  const { contactModalVisible, setContactModalVisible } =
+    useContext(NutritionContext)!;
 
   useEffect(() => {
     console.log(text + ' ' + selected);
@@ -38,6 +41,7 @@ const FancyButton = ({ text, href, arrow, selected }: propTypes) => {
       //at: 0.5 has it delay its reset to prevent stutter
       ['.letter', { y: 0 }, { duration: 0.000001, at: 0.5 }],
     ]);
+    setContactModalVisible(false);
   };
 
   const handleButtonClickContact = () => {
@@ -46,6 +50,7 @@ const FancyButton = ({ text, href, arrow, selected }: propTypes) => {
       ['.buttonLink', { scale: 1.1 }, { duration: 0.13, at: '<' }],
       ['.buttonLink', { scale: 1 }, { duration: 0.1 }],
     ]);
+    setContactModalVisible((prev) => !prev);
   };
 
   const handleMouseOver = () => {

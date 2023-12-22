@@ -9,9 +9,11 @@ import {
   stagger,
   useAnimate,
 } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { NutritionContext } from './libs/NutritionProvider';
 import Image from 'next/image';
 import ServiceCard from './components/ServiceCard';
+import ContactModal from './components/ContactModal';
 
 function CheckIcon() {
   return (
@@ -59,6 +61,8 @@ const draw = {
 export default function Home() {
   const { scrollYProgress } = useScroll();
   const [scope, animate] = useAnimate();
+  const { contactModalVisible, setContactModalVisible } =
+    useContext(NutritionContext)!;
 
   //TODO: Animate Presence when changing pages
   useEffect(() => {
@@ -72,7 +76,8 @@ export default function Home() {
   }, [animate]);
 
   return (
-    <>
+    <div>
+      {contactModalVisible && <ContactModal />}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -311,6 +316,6 @@ export default function Home() {
       </section>
       {/******************************************* SECTION 3 *********************************************/}
       <section className='min-h-screen bg-white relative'></section>
-    </>
+    </div>
   );
 }
