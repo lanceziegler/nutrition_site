@@ -90,7 +90,7 @@ const FancyButton = ({ text, href, arrow, selected }: propTypes) => {
       ['.letter', { color: '#000000' }],
       ['.buttonLink', { scale: 1 }, { at: '<' }],
       ['.buttonLink', { color: '#000000' }, { duration: 0.1, at: '<' }],
-      ['.buttonLink', { borderColor: '#000000' }, { duration: 0.1, at: '<' }],
+      ['.buttonLink', { borderColor: '#70b959' }, { duration: 0.1, at: '<' }],
     ]);
   };
 
@@ -135,7 +135,7 @@ const FancyButton = ({ text, href, arrow, selected }: propTypes) => {
             ? `rounded-full border-2 shadow-lg ${!selected && 'greenWipe'} ${
                 selected
                   ? 'bg-green-100 border-[#70b959]'
-                  : 'bg-gray-100 border-[#000000]'
+                  : 'bg-gray-100 border-[#70b959]'
               } `
             : 'rounded-md border-4 border-[#9bd787] shadow-md bg-[#f8fff6]'
         } px-6 py-2 text-[#000000] transition-colors flex items-center gap-3`}
