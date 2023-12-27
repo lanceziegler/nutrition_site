@@ -10,6 +10,7 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const ContactModal = ({ key }: { key: string }) => {
   const [value, onChange] = useState<Value>(new Date());
+  const [dailyOpeningsVisible, setDailyOpeningsVisible] = useState(false);
 
   return (
     <motion.div
@@ -18,13 +19,14 @@ const ContactModal = ({ key }: { key: string }) => {
       animate={{ opacity: 1, scale: 1, borderRadius: '20px' }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
-      className='absolute bg-white z-50 flex justify-center items-center'
+      className='absolute top-1/2 left-1/2 bg-white z-50'
     >
       <div>
         <Calendar
           onChange={onChange}
           value={value}
           tileClassName='hover:bg-[#70b959] transition-colors duration-100 hover:text-white'
+          onClickDay={() => setDailyOpeningsVisible((prev) => !prev)}
         />
       </div>
     </motion.div>

@@ -78,7 +78,7 @@ export default function Home() {
   return (
     <div>
       <AnimatePresence>
-        {contactModalVisible && <ContactModal key='modal'/>}
+        {contactModalVisible && <ContactModal key='modal' />}
       </AnimatePresence>
       <motion.div
         initial={{ opacity: 0 }}
