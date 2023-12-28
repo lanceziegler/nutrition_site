@@ -44,7 +44,9 @@ const FancyButton = ({ text, href, arrow, selected }: propTypes) => {
     setContactModalVisible(false);
   };
 
-  const handleButtonClickContact = () => {
+  const handleButtonClickContact = (e: any) => {
+    e.preventDefault();
+
     animate([
       ['.buttonLink', { scale: 0.9 }, { duration: 0.1, at: '<' }],
       ['.buttonLink', { scale: 1.1 }, { duration: 0.13, at: '<' }],
